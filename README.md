@@ -1,8 +1,5 @@
 # ResumeIQ — AI-Powered ATS Resume Analyzer & Enhancer
 
-> **Live Demo:** [your-app.vercel.app](https://your-app.vercel.app) &nbsp;|&nbsp;
-> **API Docs:** [your-backend.onrender.com/docs](https://your-backend.onrender.com/docs)
-
 An end-to-end web application that analyses resumes for ATS (Applicant Tracking System) compatibility, provides a detailed score breakdown, and uses AI to rewrite the resume with targeted improvements — all downloadable as DOCX or TXT.
 
 ---
