@@ -33,8 +33,8 @@ resumeiq/
 │   │   └── health.py        # GET  /api/health
 │   ├── services/
 │   │   ├── file_parser.py   # PyPDF2 + python-docx text extraction
-│   │   ├── ats_analyzer.py  # Gemini API → structured JSON analysis
-│   │   └── resume_enhancer.py  # Gemini API → rewritten text + DOCX gen
+│   │   ├── ats_analyzer.py  # OpenAI API → structured JSON analysis
+│   │   └── resume_enhancer.py  # OpenAI API → rewritten text + DOCX gen
 │   ├── requirements.txt
 │   ├── render.yaml          # Render.com deployment config
 │   └── .env.example
@@ -67,7 +67,7 @@ resumeiq/
 - Python 3.11+
 - Node.js 18+
 - MongoDB (local or [Atlas free tier](https://www.mongodb.com/cloud/atlas))
-- Google Gemini API key — **free** at [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
+- OpenAI API key
 
 ### 1. Clone the repo
 ```bash
@@ -83,7 +83,7 @@ source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
 cp .env.example .env
-# Edit .env — fill in GEMINI_API_KEY, MONGO_URL, DB_NAME, CORS_ORIGINS
+# Edit .env — fill in OpenAI_API_KEY, MONGO_URL, DB_NAME, CORS_ORIGINS
 
 uvicorn main:app --reload --port 8000
 # API docs: http://localhost:8000/docs
@@ -113,7 +113,7 @@ npm run dev
 4. Build command: `pip install -r requirements.txt`
 5. Start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
 6. Add environment variables in the Render dashboard:
-   - `GEMINI_API_KEY` — your key
+   - `OpenAI_API_KEY` — your key
    - `MONGO_URL` — MongoDB Atlas connection string
    - `DB_NAME` — `resumeiq`
    - `CORS_ORIGINS` — `https://your-frontend.vercel.app`
@@ -143,7 +143,7 @@ npm run dev
 ### Backend (`backend/.env`)
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `GEMINI_API_KEY` | ✅ | Google Gemini API key |
+| `OpenAI_API_KEY` | ✅ | OpenAI API key |
 | `MONGO_URL` | ✅ | MongoDB connection string |
 | `DB_NAME` | ✅ | Database name (e.g. `resumeiq`) |
 | `CORS_ORIGINS` | ✅ | Comma-separated frontend origins |
@@ -164,7 +164,7 @@ npm run dev
 | File parsing (client) | mammoth (DOCX), PDF.js CDN (PDF) |
 | Backend | FastAPI, Uvicorn |
 | File parsing (server) | PyPDF2, python-docx |
-| AI | Google Gemini 2.0 Flash (free tier) |
+| AI | OpenAI |
 | Database | MongoDB via Motor (async) |
 | HTTP client | httpx (backend), axios (frontend) |
 | Deployment | Render (backend), Vercel (frontend), MongoDB Atlas (DB) |
@@ -211,7 +211,7 @@ MIT — free to use, modify, and deploy.
 
 Built as a full-stack portfolio project demonstrating:
 - FastAPI REST API with async MongoDB (Motor)
-- Google Gemini AI integration (structured JSON + free-text generation)
+- OpenAI integration (structured JSON + free-text generation)
 - React SPA with client-side file parsing
 - Multi-environment deployment (Render + Vercel + Atlas)
 - Clean separation of concerns across services
