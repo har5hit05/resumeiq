@@ -1,0 +1,22 @@
+# render.yaml — Render.com deployment config for ResumeIQ backend
+# Push this file to your git repo and connect it to Render.
+# https://render.com/docs/infrastructure-as-code
+
+services:
+  - type: web
+    name: resumeiq-backend
+    runtime: python
+    region: oregon          # change to: ohio, frankfurt, singapore as needed
+    plan: free              # upgrade to starter ($7/mo) for always-on
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false         # set manually in Render dashboard → Environment
+      - key: MONGO_URL
+        sync: false         # paste your MongoDB Atlas connection string
+      - key: DB_NAME
+        value: resumeiq
+      - key: CORS_ORIGINS
+        sync: false         # e.g. https://your-frontend.vercel.app
+    healthCheckPath: /api/health
