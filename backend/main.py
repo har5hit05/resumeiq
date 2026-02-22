@@ -42,8 +42,8 @@ app = FastAPI(
 # ── CORS ───────────────────────────────────────────────────────────
 # In production set CORS_ORIGINS in .env, e.g.:
 #   CORS_ORIGINS=https://your-frontend.vercel.app
-raw_origins = os.getenv("CORS_ORIGINS", "*")
-origins = raw_origins.split(",") if raw_origins != "*" else ["*"]
+raw_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000")
+origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
