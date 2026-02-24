@@ -42,12 +42,18 @@ app = FastAPI(
 # ── CORS ───────────────────────────────────────────────────────────
 # In production set CORS_ORIGINS in .env, e.g.:
 #   CORS_ORIGINS=https://your-frontend.vercel.app
-raw_origins = os.getenv("https://resumeiq-omega.vercel.app", "http://localhost:5173,http://localhost:3000")
-origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
+# raw_origins = os.getenv("https://resumeiq-omega.vercel.app", "http://localhost:5173,http://localhost:3000")
+# origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
+
+ALLOWED_ORIGINS = [
+    "https://resumeiq-omega.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000",
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
